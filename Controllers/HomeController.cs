@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SportsORM.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace SportsORM.Controllers
 {
@@ -29,6 +30,38 @@ namespace SportsORM.Controllers
         [HttpGet("level_1")]
         public IActionResult Level1()
         {
+
+            ViewBag.WomensLeagues = context.Leagues
+                .Where(l => l.Name.Contains("Women"));
+            ViewBag.HockeyLeagues = context.Leagues
+                .Where(l => l.Sport.Contains("Hockey"));
+            ViewBag.NonFootballLeagues = context.Leagues
+                .Where(l => !l.Sport.Contains("Football"));
+            ViewBag.ConferenceLeagues = context.Leagues
+                .Where(l => l.Name.Contains("Conference"));
+            ViewBag.AtlanticLeagues = context.Leagues
+                .Where(l => l.Name.Contains("Atlantic"));
+            ViewBag.DallasTeams = context.Teams
+                .Where(t => t.Location.Contains("Dallas"));
+            ViewBag.RaptorsTeams = context.Teams
+                .Where(t => t.TeamName.Contains("Raptors"));
+            ViewBag.CityTeams = context.Teams
+                .Where(t => t.Location.Contains("City"));
+            ViewBag.TTeams = context.Teams
+                .Where(t => t.TeamName[0]=='T');
+            ViewBag.AllTeamsAlphabeticallyByLocation = context.Teams
+                .OrderBy(t => t.Location);
+            ViewBag.AllTeamsReverseOrderByTeamName = Enumerable.Reverse(context.Teams.OrderBy(t => t.TeamName));  
+            ViewBag.CooperPlayers = context.Players
+                .Where(p => p.LastName.Contains("Cooper"));
+            ViewBag.JoshuaPlayers = context.Players
+                .Where(p => p.FirstName.Contains("Joshua"));
+            ViewBag.CooperNotJoshuaPlayers = context.Players
+                .Where(p => p.LastName.Contains("Cooper")&& !p.FirstName.Contains("Joshua"));
+            ViewBag.AlexanderWyattPlayers = context.Players
+                .Where(p => p.FirstName.Contains("Alexander") || p.FirstName.Contains("Wyatt"))
+                .OrderBy(p => p.TeamId);
+
             return View();
         }
 
