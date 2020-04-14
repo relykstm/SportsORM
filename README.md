@@ -1,5 +1,7 @@
 # Sports ORM
 
+** Not all my original code, but an exercise provided to practice C# and Query/Database exercises ** 
+
 Using the SportsORM, complete all the queries and show their results on ```level1.cshtml```, ```level2.cshtml```, and ```level3.cshtml```.
 
 The ERD ```Entity Relationship Diagram``` for the project looks like the following.
